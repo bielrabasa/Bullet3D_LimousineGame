@@ -4,6 +4,7 @@
 #include "PhysBody3D.h"
 #include "PhysVehicle3D.h"
 #include "Primitive.h"
+#include "time.h"
 
 #ifdef _DEBUG
 	#pragma comment (lib, "Bullet/libx86/BulletDynamics_debug.lib")
@@ -66,7 +67,13 @@ bool ModulePhysics3D::Start()
 		world->addRigidBody(body);
 	}
 
-	CreateBuilding(2, 2, 4, 10, 10);
+	//Random height building grid
+	srand(time(NULL));
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 5; j++) {
+			CreateBuilding(5, 5, 4 + rand() % 10, 20*i, 20*j);
+		}
+	}
 
 	return true;
 }
