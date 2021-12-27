@@ -17,7 +17,7 @@ bool ModuleSceneIntro::Start()
 	LOG("Loading Intro assets");
 	bool ret = true;
 
-	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
+	App->camera->Move(vec3(1.0f, 30.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
 	return ret;
@@ -38,14 +38,17 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.axis = true;
 	p.Render();
 
-	Cube c1(10, 10, 10);
+	for (p2List_item<Cube*>* current_building = buildings.getFirst(); current_building != nullptr; current_building = current_building->next) {
+		current_building->data->Render();
+	}
+	/*Cube c1(10, 10, 10);
 	Cube c2(10, 10, 10);
 
 	c1.SetPos(10, 5, 0);
 	c2.SetPos(-10, 5, 0);
 
 	c1.Render();
-	c2.Render();
+	c2.Render();*/
 
 	return UPDATE_CONTINUE;
 }

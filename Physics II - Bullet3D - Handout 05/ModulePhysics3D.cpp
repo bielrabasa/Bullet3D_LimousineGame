@@ -66,6 +66,8 @@ bool ModulePhysics3D::Start()
 		world->addRigidBody(body);
 	}
 
+	CreateBuilding(2, 2, 4, 10, 10);
+
 	return true;
 }
 
@@ -135,6 +137,8 @@ update_status ModulePhysics3D::Update(float dt)
 			AddBody(s)->Push(-(App->camera->Z.x * force), -(App->camera->Z.y * force), -(App->camera->Z.z * force));
 		}
 	}
+
+
 
 	return UPDATE_CONTINUE;
 }
@@ -359,6 +363,14 @@ void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, c
 	constraints.add(hinge);
 	hinge->setDbgDrawSize(2.0f);
 }
+
+void ModulePhysics3D::CreateBuilding(float wx, float wz, float h , float x, float z) {
+	Cube* c = new Cube(wx, h, wz);
+	c->SetPos(x, h/2, z);
+	AddBody(*c, 0.0f);
+	App->scene_intro->buildings.add(c);
+}
+
 
 // =============================================
 void DebugDrawer::drawLine(const btVector3& from, const btVector3& to, const btVector3& color)
