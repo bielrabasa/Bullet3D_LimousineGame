@@ -71,7 +71,7 @@ bool ModulePhysics3D::Start()
 	srand(time(NULL));
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 5; j++) {
-			CreateBuilding(5, 5, 4 + rand() % 10, 20*i, 20*j);
+			CreateBuilding(10, 10, 4 + rand() % 10, 20*i, 20*j);
 		}
 	}
 
