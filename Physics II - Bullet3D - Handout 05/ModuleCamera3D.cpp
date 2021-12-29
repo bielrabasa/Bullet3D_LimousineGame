@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "PhysBody3D.h"
+#include "PhysVehicle3D.h"
 #include "ModuleCamera3D.h"
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -44,7 +45,7 @@ update_status ModuleCamera3D::Update(float dt)
 	vec3 newPos(0,0,0);
 	float speed = 20.0f * dt;
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-		speed = 8.0f * dt;
+		speed = 50.0f * dt;
 
 	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
 	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
@@ -95,6 +96,20 @@ update_status ModuleCamera3D::Update(float dt)
 
 		Position = Reference + Z * length(Position);
 	}
+	
+	vec3 vehiclePos = vec3(App->player->vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().x(),
+							App->player->vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().y(),
+							App->player->vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().z());
+
+	if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+		followVehicle = !followVehicle;
+	
+	if (followVehicle) {	//ARREGLAR
+		vec3 cameraPos = (vehiclePos.x, vehiclePos.y + 30.0f, vehiclePos.z);
+		MoveAt(cameraPos);
+	}
+	
+	LookAt(vehiclePos);
 
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
@@ -139,6 +154,14 @@ void ModuleCamera3D::Move(const vec3 &Movement)
 {
 	Position += Movement;
 	Reference += Movement;
+
+	CalculateViewMatrix();
+}
+
+void ModuleCamera3D::MoveAt(const vec3& Movement)
+{
+	Position = Movement;
+	Reference = Movement;
 
 	CalculateViewMatrix();
 }
