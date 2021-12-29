@@ -103,12 +103,13 @@ update_status ModuleCamera3D::Update(float dt)
 		vec3 vehiclePos = vec3(App->player->vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().x(),
 							   App->player->vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().y(),
 							   App->player->vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().z());
-		/*
-		vec3 cameraPos = vec3(vehiclePos.x, vehiclePos.y + 30.0f, vehiclePos.z - 30.0f);
-		LOG("X: %.2f, Y: %.2f, Z: %.2f", cameraPos.x, cameraPos.y, cameraPos.z);
-		MoveAt(cameraPos);*/
+		
+		vec3 cameraPos;
+		cameraPos.Set(vehiclePos.x + 0.0f, vehiclePos.y + 30.0f, vehiclePos.z - 30.0f);
+		LOG("Cam = X: %.2f, Y: %.2f, Z: %.2f", cameraPos.x, cameraPos.y, cameraPos.z);
+		LOG("Vehicle = X: %.2f, Y: %.2f, Z: %.2f", vehiclePos.x, vehiclePos.y, vehiclePos.z);
 
-		Look(vehiclePos + 30.0f, vehiclePos, true);
+		Look(cameraPos, vehiclePos, true);
 		//MoveAt(vehiclePos + 30.0f);
 		//LookAt(vehiclePos);
 
