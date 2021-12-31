@@ -45,9 +45,9 @@ void PhysVehicle3D::Render()
 	CreateRenderPart(offset, Color(Red), 0, 0, -6, 0, 0, 0);
 	CreateRenderPart(offset, Color(Red), 0, -1, 0, 0, -0.5, 0);
 
-	for (int i = 0; i < 6; i++) {
+	/*for (int i = 0; i < 6; i++) {
 		CreateRenderPart(offset, Color(Black), 0.1, -1.2, -14.2, 0, 0.4, -3.5 + 1.40 * i);
-	}
+	}*/
 	
 }
 

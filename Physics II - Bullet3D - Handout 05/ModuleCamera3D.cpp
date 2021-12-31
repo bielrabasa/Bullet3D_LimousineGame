@@ -100,11 +100,6 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 	}
 	else{	//FOLLOW VEHICLE
-		//Get scroll wheel to aproach or move away the camera.
-		if (App->input->GetMouseZ() != 0) {
-			float Sensitivity = 2.0f;
-			camDistance += App->input->GetMouseZ() * Sensitivity;
-		}
 
 		//Rotate camera with mouse arround the vehicle
 		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
@@ -121,22 +116,19 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 
 		vec3 vehiclePos = vec3(App->player->vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().x(),
-							   App->player->vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().y(),
+							   App->player->vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().y() + 10.0f,
 							   App->player->vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().z());
 		
 		vec3 cameraPos = vec3(vehiclePos.x + 0.0f, vehiclePos.y + 30.0f, vehiclePos.z - 50.0f);
-
-		//Move the camera to the back of the vehicle
-		MoveAt(cameraPos);
+		
+		//Move the camera to the back of the vehicle and rotate with it
+		Position.x = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getX() - 50 * App->player->vehicle->vehicle->getForwardVector().getX();
+		Position.y = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getY() + 30 * App->player->vehicle->vehicle->getUpAxis();
+		Position.z = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getZ() - 50 * App->player->vehicle->vehicle->getForwardVector().getZ();
 
 		//Regulate cam rotation
 		Position -= X * camRotation * (camDistance - 50.0f);
 		Reference -= X * camRotation * (camDistance - 50.0f);
-		
-		//Regulate cam distance
-		Position.z += camDistance;
-		Reference.z += camDistance;
-
 
 		//Set the cam to look at the vehicle position
 		LookAt(vehiclePos);
