@@ -38,34 +38,34 @@ void PhysVehicle3D::Render()
 		wheel.Render();
 	}
 
-	Cube chassis(info.chassis_size.x, info.chassis_size.y/2, info.chassis_size.z);
-	Cube chassis2(info.chassis_size.x, info.chassis_size.y-1, info.chassis_size.z/2);
-	Cube frontDiagonal(info.chassis_size.x, info.chassis_size.y-1, info.chassis_size.z-12);
-	vehicle->getChassisWorldTransform().getOpenGLMatrix(&chassis.transform);
-	vehicle->getChassisWorldTransform().getOpenGLMatrix(&chassis2.transform);
-	vehicle->getChassisWorldTransform().getOpenGLMatrix(&frontDiagonal.transform);
 	btQuaternion q = vehicle->getChassisWorldTransform().getRotation();
 	btVector3 offset(info.chassis_offset.x, info.chassis_offset.y, info.chassis_offset.z);
 	offset = offset.rotate(q.getAxis(), q.getAngle());
 
-	chassis.transform.M[12] += offset.getX();
-	chassis.transform.M[13] += offset.getY()-1;
-	chassis.transform.M[14] += offset.getZ();
+	CreateRenderPart(offset, Color(Red), 0, 0, -6, 0, 0, 0);
+	CreateRenderPart(offset, Color(Red), 0, -1, 0, 0, -0.5, 0);
 
-	chassis2.transform.M[12] += offset.getX();
-	chassis2.transform.M[13] += offset.getY();
-	chassis2.transform.M[14] += offset.getZ();
-
-	frontDiagonal.transform.M[12] += offset.getX();
-	frontDiagonal.transform.M[13] += offset.getY();
-	frontDiagonal.transform.M[14] += offset.getZ()-5;
+	for (int i = 0; i < 6; i++) {
+		CreateRenderPart(offset, Color(Black), 0.1, -1.2, -14.2, 0, 0.4, -3.5 + 1.40 * i);
+	}
 	
-	chassis.color = Color (Red);
-	chassis2.color = Color(Red);
+}
+
+//vehicle offset, color, size (respect vehicle's colisionbox), offsets
+void PhysVehicle3D::CreateRenderPart(btVector3 offset, Color color, 
+									float chassisX, float chassisY, float chassisZ,
+									float offsetX, float offsetY, float offsetZ) {
+	
+	Cube chassis(info.chassis_size.x + chassisX, info.chassis_size.y + chassisY, info.chassis_size.z + chassisZ);
+	vehicle->getChassisWorldTransform().getOpenGLMatrix(&chassis.transform);
+
+	chassis.transform.M[12] += offset.getX() + offsetX;
+	chassis.transform.M[13] += offset.getY() + offsetY;
+	chassis.transform.M[14] += offset.getZ() + offsetZ;
+
+	chassis.color = color;
 
 	chassis.Render();
-	chassis2.Render();
-	frontDiagonal.Render();
 }
 
 // ----------------------------------------------------------------------------

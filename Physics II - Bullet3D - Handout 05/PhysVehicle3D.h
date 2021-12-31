@@ -2,6 +2,9 @@
 
 #include "PhysBody3D.h"
 #include "glmath.h"
+#include "Bullet/include/btBulletDynamicsCommon.h"
+#include "Primitive.h"
+
 
 class btRaycastVehicle;
 struct PhysBody3D;
@@ -46,6 +49,9 @@ public:
 	~PhysVehicle3D();
 
 	void Render();
+	void CreateRenderPart(btVector3 offset, Color color,
+		float chassisX, float chassisY, float chassisZ,
+		float offsetX, float offsetY, float offsetZ);
 	void ApplyEngineForce(float force);
 	void Brake(float force);
 	void Turn(float degrees);
