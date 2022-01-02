@@ -30,6 +30,5 @@ public:
 
 private:
 	float camRotation = 0.0f;
-	float camDistance = 0.0f;
 	mat4x4 ViewMatrix, ViewMatrixInverse;
 };

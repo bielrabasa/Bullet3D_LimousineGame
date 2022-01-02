@@ -119,7 +119,7 @@ update_status ModuleCamera3D::Update(float dt)
 							   App->player->vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().y() + 10.0f,
 							   App->player->vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().z());
 		
-		vec3 cameraPos = vec3(vehiclePos.x + 0.0f, vehiclePos.y + 30.0f, vehiclePos.z - 50.0f);
+		//vec3 cameraPos = vec3(vehiclePos.x + 0.0f, vehiclePos.y + 30.0f, vehiclePos.z - 50.0f);
 		
 		//Move the camera to the back of the vehicle and rotate with it
 		Position.x = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getX() - 30 * App->player->vehicle->vehicle->getForwardVector().getX();
@@ -127,8 +127,8 @@ update_status ModuleCamera3D::Update(float dt)
 		Position.z = App->player->vehicle->vehicle->getChassisWorldTransform().getOrigin().getZ() - 30 * App->player->vehicle->vehicle->getForwardVector().getZ();
 
 		//Regulate cam rotation
-		Position -= X * camRotation * (camDistance - 50.0f);
-		Reference -= X * camRotation * (camDistance - 50.0f);
+		Position -= X * camRotation * -50.0f;
+		Reference -= X * camRotation * -50.0f;
 
 		//Set the cam to look at the vehicle position
 		LookAt(vehiclePos);

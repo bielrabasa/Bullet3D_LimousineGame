@@ -28,7 +28,7 @@ bool ModulePlayer::Start()
 	car.suspensionCompression = 0.83f;
 	car.suspensionDamping = 5.88f;
 	car.maxSuspensionTravelCm = 80.0f;
-	car.frictionSlip = 50.5;
+	car.frictionSlip = 100;
 	car.maxSuspensionForce = 9000.0f;
 
 	// Wheel properties ---------------------------------------
@@ -97,7 +97,7 @@ bool ModulePlayer::Start()
 	car.wheels[3].steering = false;
 
 	vehicle = App->physics->AddVehicle(car);
-	vehicle->SetPos(0, 12, -30);
+	vehicle->SetPos(0, 1, -30);
 	
 	return true;
 }
@@ -115,7 +115,7 @@ update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
 
-	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && vehicle->GetKmh() > -30.0f)
 	{
 		acceleration = MAX_ACCELERATION;
 	}
@@ -132,9 +132,8 @@ update_status ModulePlayer::Update(float dt)
 			turn -= TURN_DEGREES;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && vehicle->GetKmh() < 30.0f)
 	{
-		//brake = BRAKE_POWER;
 		acceleration = -MAX_ACCELERATION;
 	}
 
@@ -145,7 +144,11 @@ update_status ModulePlayer::Update(float dt)
 
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
-	vehicle->Brake(brake+5);
+	vehicle->Brake(brake);
+
+	//Velocity Limiter
+	if (vehicle->GetKmh() > 150 || vehicle->GetKmh() < -150)
+		vehicle->Brake(100);
 
 	vehicle->Render();
 
