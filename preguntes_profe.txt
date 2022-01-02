@@ -1,1 +1,3 @@
-Com carregar render de cotxe?
+Com carregar render (model 3d) de cotxe?
+
+Offset en l'eix Z (error), module camera cpp
