@@ -145,7 +145,7 @@ update_status ModulePlayer::Update(float dt)
 
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
-	vehicle->Brake(brake);
+	vehicle->Brake(brake+5);
 
 	vehicle->Render();
 
