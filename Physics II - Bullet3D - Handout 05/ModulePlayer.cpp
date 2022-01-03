@@ -156,6 +156,10 @@ update_status ModulePlayer::Update(float dt)
 	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
 	App->window->SetTitle(title);
 
+	position.x = vehicle->vehicle->getChassisWorldTransform().getOrigin().x();
+	position.y = vehicle->vehicle->getChassisWorldTransform().getOrigin().y();
+	position.z = vehicle->vehicle->getChassisWorldTransform().getOrigin().z();
+
 	return UPDATE_CONTINUE;
 }
 

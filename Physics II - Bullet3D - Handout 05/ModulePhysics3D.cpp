@@ -71,10 +71,10 @@ bool ModulePhysics3D::Start()
 	srand(time(NULL));
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 5; j++) {
-			CreateBuilding(10, 10, 4 + rand() % 10, 20*i, 20*j);
+			CreateBuilding(30, 30, 45*i, 45*j);
 		}
 	}
-
+	//CreateBuilding(500, 500, 4, 0, 0);
 	return true;
 }
 
@@ -371,11 +371,19 @@ void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, c
 	hinge->setDbgDrawSize(2.0f);
 }
 
-void ModulePhysics3D::CreateBuilding(float wx, float wz, float h , float x, float z) {
+void ModulePhysics3D::CreateBuilding(float wx, float wz, float x, float z) {
+	float h = 20 + rand() % 10;
+	
 	Cube* c = new Cube(wx, h, wz);
 	c->SetPos(x, h/2, z);
 	AddBody(*c, 0.0f);
 	App->scene_intro->buildings.add(c);
+
+	Cube* v = new Cube(wx + 4, 0.6f, wz + 4);
+	v->SetPos(x, 0.3, z);
+	AddBody(*v, 0.0f);
+	v->color = Color(0.4f, 0.4f, 0.4f);
+	App->scene_intro->buildings.add(v);
 }
 
 
