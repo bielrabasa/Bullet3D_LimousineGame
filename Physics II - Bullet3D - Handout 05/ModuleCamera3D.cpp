@@ -104,15 +104,15 @@ update_status ModuleCamera3D::Update(float dt)
 		//Rotate camera with mouse arround the vehicle
 		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
 		{
-			float Sensitivity = 0.01f;
-			camRotation += App->input->GetMouseXMotion() * Sensitivity;
+			float Sensitivity = 0.0015f;
+			camRotation -= App->input->GetMouseXMotion() * Sensitivity;
 			
 			//Cam rotation limiter (almost 90º each side)
-			if (camRotation > 0.999f)
-				camRotation = 0.999f;
+			if (camRotation > 0.55f)
+				camRotation = 0.55f;
 
-			if (camRotation < -0.999f)
-				camRotation = -0.999f;
+			if (camRotation < -0.55f)
+				camRotation = -0.55f;
 		}
 
 		vec3 vehiclePos = vec3(App->player->vehicle->vehicle->getRigidBody()->getCenterOfMassPosition().x(),
