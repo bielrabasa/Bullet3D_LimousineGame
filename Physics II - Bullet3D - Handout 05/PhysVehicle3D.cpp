@@ -38,30 +38,32 @@ void PhysVehicle3D::Render()
 		wheel.Render();
 	}
 
-	btQuaternion q = vehicle->getChassisWorldTransform().getRotation();
-	btVector3 offset(info.chassis_offset.x, info.chassis_offset.y, info.chassis_offset.z);
-	offset = offset.rotate(q.getAxis(), q.getAngle());
+	//Main body
+	CreateRenderPart(Color(Red), 0, 0, -6, 0, 0, 0);
+	CreateRenderPart(Color(Red), 0, -1, 0, 0, -0.5, 0);
 
-	CreateRenderPart(offset, Color(Red), 0, 0, -6, 0, 0, 0);
-	CreateRenderPart(offset, Color(Red), 0, -1, 0, 0, -0.5, 0);
-
-	/*for (int i = 0; i < 6; i++) {
-		CreateRenderPart(offset, Color(Black), 0.1, -1.2, -14.2, 0, 0.4, -3.5 + 1.40 * i);
-	}*/
+	//Windows
+	for (int i = 0; i < 6; i++) {
+		CreateRenderPart(Color(Black), 0.1, -1.2, -14.2, 0, 0.4, -3.5 + 1.40 * i);
+	}
 	
 }
 
-//vehicle offset, color, size (respect vehicle's colisionbox), offsets
-void PhysVehicle3D::CreateRenderPart(btVector3 offset, Color color, 
+//color, size (respect vehicle's colisionbox), offsets
+void PhysVehicle3D::CreateRenderPart(Color color, 
 									float chassisX, float chassisY, float chassisZ,
 									float offsetX, float offsetY, float offsetZ) {
 	
+	btQuaternion q = vehicle->getChassisWorldTransform().getRotation();
+	btVector3 offset(info.chassis_offset.x + offsetX, info.chassis_offset.y + offsetY, info.chassis_offset.z + offsetZ);
+	offset = offset.rotate(q.getAxis(), q.getAngle());
+
 	Cube chassis(info.chassis_size.x + chassisX, info.chassis_size.y + chassisY, info.chassis_size.z + chassisZ);
 	vehicle->getChassisWorldTransform().getOpenGLMatrix(&chassis.transform);
 
-	chassis.transform.M[12] += offset.getX() + offsetX;
-	chassis.transform.M[13] += offset.getY() + offsetY;
-	chassis.transform.M[14] += offset.getZ() + offsetZ;
+	chassis.transform.M[12] += offset.getX();
+	chassis.transform.M[13] += offset.getY();
+	chassis.transform.M[14] += offset.getZ();
 
 	chassis.color = color;
 

@@ -26,10 +26,9 @@ bool ModuleSceneIntro::Start()
 	sensor->collision_listeners.add(App->scene_intro);
 
 	sensorvehicle = App->physics->AddBody(Sphere(5), 0.0f);
-	sensorvehicle->SetAsSensor(true);
+	sensorvehicle->SetAsSensor(true);	
 	sensorvehicle->SetPos(0, 0, 0);
 	sensorvehicle->collision_listeners.add(App->scene_intro);
-
 
 	return ret;
 }

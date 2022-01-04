@@ -49,7 +49,7 @@ public:
 	~PhysVehicle3D();
 
 	void Render();
-	void CreateRenderPart(btVector3 offset, Color color,
+	void CreateRenderPart(Color color,
 		float chassisX, float chassisY, float chassisZ,
 		float offsetX, float offsetY, float offsetZ);
 	void ApplyEngineForce(float force);
