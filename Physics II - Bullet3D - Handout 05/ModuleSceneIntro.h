@@ -19,11 +19,16 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
+	void MoveArrow(float x, float z);
+
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2) override;
 
 public:
 	PhysBody3D* sensor;
-	PhysBody3D* sensorvehicle;
+
+	Cylinder* fletxa;
+	Cylinder* fletxa_point_top;
+	Sphere* fletxa_point;
 
 	PhysBody3D* pb_chassis;
 	Cube p_chassis;
