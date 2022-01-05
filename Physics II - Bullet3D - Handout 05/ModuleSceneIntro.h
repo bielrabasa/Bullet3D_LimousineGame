@@ -19,11 +19,11 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
+	void OnCollision(PhysBody3D* body1, PhysBody3D* body2) override;
 
 public:
 	PhysBody3D* sensor;
-	PhysBody3D* sensorvehicle;
+	//PhysBody3D* sensorvehicle;
 
 	PhysBody3D* pb_chassis;
 	Cube p_chassis;

@@ -98,7 +98,9 @@ bool ModulePlayer::Start()
 
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(0, 1, -30);
-	
+	//vehicle->collision_listeners.add(this);
+	vehicle->collision_listeners.add(App->scene_intro);
+
 	return true;
 }
 
@@ -163,5 +165,6 @@ update_status ModulePlayer::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
+void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2){
 
-
+}
