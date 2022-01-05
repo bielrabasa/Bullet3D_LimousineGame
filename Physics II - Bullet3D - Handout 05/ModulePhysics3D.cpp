@@ -339,6 +339,7 @@ PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)
 	PhysVehicle3D* pvehicle = new PhysVehicle3D(body, vehicle, info);
 	world->addVehicle(vehicle);
 	vehicles.add(pvehicle);
+	body->setUserPointer(pvehicle);
 
 	return pvehicle;
 }

@@ -22,12 +22,15 @@ bool ModuleSceneIntro::Start()
 
 	sensor = App->physics->AddBody(Cube(5, 5, 5), 0.0f);
 	sensor->SetAsSensor(true);
-	sensor->SetPos(0, 0, -20);
-	/*
+	sensor->SetPos(0, 6, -20);
+	sensor->name = "cub_sensor";
+
 	sensorvehicle = App->physics->AddBody(Sphere(5), 0.0f);
 	sensorvehicle->SetAsSensor(true);	
 	sensorvehicle->SetPos(0, 0, 0);
-	*/
+	sensorvehicle->collision_listeners.add(this);
+	sensorvehicle->name = "ball_sensor";
+
 	return ret;
 }
 
@@ -46,7 +49,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.axis = true;
 	p.Render();
 
-	//sensorvehicle->SetPos(App->player->position.x, App->player->position.y, App->player->position.z);
+	sensorvehicle->SetPos(App->player->position.x, App->player->position.y, App->player->position.z);
 
 	for (p2List_item<Cube*>* current_building = buildings.getFirst(); current_building != nullptr; current_building = current_building->next) {
 		current_building->data->Render();

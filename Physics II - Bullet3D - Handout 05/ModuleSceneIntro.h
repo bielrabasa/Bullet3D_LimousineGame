@@ -23,7 +23,7 @@ public:
 
 public:
 	PhysBody3D* sensor;
-	//PhysBody3D* sensorvehicle;
+	PhysBody3D* sensorvehicle;
 
 	PhysBody3D* pb_chassis;
 	Cube p_chassis;
