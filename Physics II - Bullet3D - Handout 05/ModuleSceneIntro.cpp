@@ -3,6 +3,7 @@
 #include "ModuleSceneIntro.h"
 #include "Primitive.h"
 #include "PhysBody3D.h"
+#include "time.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -20,9 +21,8 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 100.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	sensor = App->physics->AddBody(Cube(5, 5, 5), 0.0f);
+	sensor = App->physics->AddBody(Cube(10, 10, 10), 0.0f);
 	sensor->SetAsSensor(true);
-	sensor->SetPos(0, 1, -50);
 
 	fletxa = new Cylinder(1, 10);
 	fletxa->SetRotation(90, vec3(0, 0, 1));
@@ -35,7 +35,7 @@ bool ModuleSceneIntro::Start()
 	fletxa_point = new Sphere(2);
 	fletxa_point->color = Color(0.1, 5.0, 0.1);
 
-	MoveArrow(0, -50);
+	MoveSensor(0, -50);
 
 	return ret;
 }
@@ -59,6 +59,11 @@ update_status ModuleSceneIntro::Update(float dt)
 		current_building->data->Render();
 	}
 	
+	/*if (App->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT) {
+		srand(time(NULL));
+		MoveSensor(-50 + rand() % 100, -50);
+	}*/
+
 	fletxa->Render();
 	fletxa_point->Render();
 	fletxa_point_top->Render();
@@ -66,17 +71,19 @@ update_status ModuleSceneIntro::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
-void ModuleSceneIntro::MoveArrow(float x, float z) {
-	int y = 10;
+void ModuleSceneIntro::MoveSensor(float x, float z) {
+	int y = 15;	//arrow height
 	fletxa->SetPos(x, y + 5, z);
 	fletxa_point->SetPos(x, y, z);
 	fletxa_point_top->SetPos(x, y + 1, z);
+	sensor->SetPos(x, 2, z);
 }
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 	if (body2 == sensor) {
-		
+		srand(time(NULL));
+		MoveSensor(-50 + rand() % 100, -50);
 	}
 }
 
