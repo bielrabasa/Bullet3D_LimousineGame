@@ -69,12 +69,30 @@ bool ModulePhysics3D::Start()
 
 	//Random height building grid
 	srand(time(NULL));
+	/*
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 5; j++) {
 			CreateBuilding(30, 30, 45*i, 45*j);
 		}
+	}*/
+	
+	//Outer limits
+	for (int i = 0; i < 20; i++) {
+		CreateBuilding(10, 25, 260, -225 + 25*i);
 	}
-	//CreateBuilding(500, 500, 4, 0, 0);
+	for (int i = 0; i < 20; i++) {
+		CreateBuilding(10, 25, -250, -225 + 25 * i);
+	}
+	for (int i = 0; i < 20; i++) {
+		CreateBuilding(25, 10, -225 + 25 * i, 260);
+	}
+	for (int i = 0; i < 20; i++) {
+		CreateBuilding(25, 10, -225 + 25 * i, -250);
+	}
+
+	//Important Buildings
+	
+
 	return true;
 }
 
