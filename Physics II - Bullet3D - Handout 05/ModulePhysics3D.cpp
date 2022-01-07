@@ -376,12 +376,12 @@ void ModulePhysics3D::CreateBuilding(float wx, float wz, float x, float z) {
 	float h = 20 + rand() % 10;
 	
 	Cube* c = new Cube(wx, h, wz);
-	c->SetPos(x, h/2, z);
+	c->SetPos(x - (wx/2), h/2, z - (wz / 2));
 	AddBody(*c, 0.0f);
 	App->scene_intro->buildings.add(c);
 
 	Cube* v = new Cube(wx + 4, 0.6f, wz + 4);
-	v->SetPos(x, 0.3, z);
+	v->SetPos(x - (wx / 2), 0.3, z - (wz / 2));
 	AddBody(*v, 0.0f);
 	v->color = Color(0.4f, 0.4f, 0.4f);
 	App->scene_intro->buildings.add(v);
