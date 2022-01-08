@@ -132,6 +132,11 @@ update_status ModuleCamera3D::Update(float dt)
 
 		//Set the cam to look at the vehicle position
 		LookAt(vehiclePos);
+
+		if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_REPEAT) {
+			Position.y += 20;
+			LookAt(App->scene_intro->fletxa_pos);
+		}
 	}
 	
 

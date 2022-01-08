@@ -43,7 +43,7 @@ bool ModuleSceneIntro::Start()
 	fletxa_point = new Sphere(2);
 	fletxa_point->color = Color(0.1, 5.0, 0.1);
 
-	MoveSensor(0, -50);
+	MoveSensor(0, 0);
 
 	//Missions
 	missions[0] = vec2(68, -237);
@@ -89,8 +89,6 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-
-	
 	//Arrow vectical fluctuation
 	fletxa_fluctuation += 0.03;
 	if (fletxa_fluctuation >= 360)
