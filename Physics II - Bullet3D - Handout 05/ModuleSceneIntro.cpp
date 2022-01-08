@@ -25,7 +25,7 @@ bool ModuleSceneIntro::Start()
 	floor->SetPos(0, -0.5, 0);
 	floor->color = Color(0.1f, 0.1f, 0.1f);
 
-	sensor = App->physics->AddBody(Cube(10, 10, 10), 0.0f);
+	sensor = App->physics->AddBody(Cube(20, 10, 20), 0.0f);
 	sensor->SetAsSensor(true);
 
 	fletxa = new Cylinder(1, 10);
@@ -86,7 +86,7 @@ void ModuleSceneIntro::MoveSensor(float x, float z) {
 	fletxa->SetPos(x, y + 5, z);
 	fletxa_point->SetPos(x, y, z);
 	fletxa_point_top->SetPos(x, y + 1, z);
-	sensor->SetPos(x, 2, z);
+	sensor->SetPos(x, 5, z);
 }
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
