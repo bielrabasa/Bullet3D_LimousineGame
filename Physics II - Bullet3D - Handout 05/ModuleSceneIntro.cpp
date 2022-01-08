@@ -93,7 +93,21 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 	if (body2 == sensor) {
 		srand(time(NULL));
-		MoveSensor(-50 + rand() % 100, -50);
+		
+		//change between mission and objective
+		mission = !mission;
+
+		//Change sensor randomly between possible positions
+		if (mission) {
+			//searching for people
+			vec2 nextMission = missions[rand() % 20];
+			MoveSensor(nextMission.x, nextMission.y);
+		}
+		else {
+			//bringing people to place
+			vec2 nextObjective = objectives[rand() % 6];
+			MoveSensor(nextObjective.x, nextObjective.y);
+		}
 	}
 }
 
