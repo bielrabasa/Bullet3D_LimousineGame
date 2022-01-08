@@ -25,6 +25,10 @@ bool ModuleSceneIntro::Start()
 	floor->SetPos(0, -0.5, 0);
 	floor->color = Color(0.1f, 0.1f, 0.1f);
 
+	park = new Cube(80, 0.1, 80);
+	park->SetPos(0, 0.05, 0);
+	park->color.Set(0.2, 1, 0.0);
+
 	sensor = App->physics->AddBody(Cube(20, 10, 20), 0.0f);
 	sensor->SetAsSensor(true);
 
@@ -67,6 +71,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	
 	//Renders
 	floor->Render();
+	park->Render();
 	for (p2List_item<Cube*>* current_building = buildings.getFirst(); current_building != nullptr; current_building = current_building->next) {
 		current_building->data->Render();
 	}

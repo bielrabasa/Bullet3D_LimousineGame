@@ -27,6 +27,7 @@ public:
 
 public:
 	Cube* floor;
+	Cube* park;
 
 	PhysBody3D* sensor;
 	Cylinder* fletxa;

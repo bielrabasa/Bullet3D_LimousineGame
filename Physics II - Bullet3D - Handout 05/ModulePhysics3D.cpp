@@ -88,6 +88,27 @@ bool ModulePhysics3D::Start()
 	App->scene_intro->NormalBuildingCreation();
 
 	//Important Buildings
+	CreateBuilding(61, 53, -231, -229);		//Piscina
+	App->scene_intro->buildings.getLast()->prev->data->color.Set(0.7, 0.4, 0.2);
+	
+	CreateBuilding(155, 73, -147, -242);	//Golf
+	App->scene_intro->buildings.getLast()->prev->data->color.Set(0.5, 0.7, 0.0);
+
+	CreateBuilding(166, 45, 84, -250);		//Aeroport
+	App->scene_intro->buildings.getLast()->prev->data->color.Set(0.9, 0.1, 0.2);
+
+	CreateBuilding(47, 65, -250, -33);		//Casino
+	App->scene_intro->buildings.getLast()->prev->data->color.Set(0.0, 0.9, 0.9);
+
+	CreateBuilding(69, 44, 151, 190);		//Disco
+	App->scene_intro->buildings.getLast()->prev->data->color.Set(0.0, 0.0, 0.7);
+
+	CreateBuilding(30, 10, 220, -85);		//Hospital 1
+	App->scene_intro->buildings.getLast()->prev->data->color.Set(1.0, 1.0, 0.3);
+	CreateBuilding(30, 10, 220, -54);		//Hospital 2
+	App->scene_intro->buildings.getLast()->prev->data->color.Set(1.0, 1.0, 0.3);
+	CreateBuilding(18, 21, 232, -75);		//Hospital 3
+	App->scene_intro->buildings.getLast()->prev->data->color.Set(1.0, 1.0, 0.3);
 
 	return true;
 }
