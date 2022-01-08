@@ -45,6 +45,36 @@ bool ModuleSceneIntro::Start()
 
 	MoveSensor(0, -50);
 
+	//Missions
+	missions[0] = vec2(68, -237);
+	missions[1] = vec2(-237, -141);
+	missions[2] = vec2(-141, -131);
+	missions[3] = vec2(-160, -46);
+	missions[4] = vec2(-61, -73);
+	missions[5] = vec2(1, -135);
+	missions[6] = vec2(114, -44);
+	missions[7] = vec2(235, -156);
+	missions[8] = vec2(-92, 26);
+	missions[9] = vec2(92, 26);
+	missions[10] = vec2(183, 49);
+	missions[11] = vec2(247, -1);
+	missions[12] = vec2(163, 139);
+	missions[13] = vec2(30, 101);
+	missions[14] = vec2(8, 203);
+	missions[15] = vec2(-85, 95);
+	missions[16] = vec2(-58, 139);
+	missions[17] = vec2(-110, 236);
+	missions[18] = vec2(-185, 200);
+	missions[19] = vec2(-241, 83);
+
+	//Objectives
+	objectives[0] = vec2(-228, -174);
+	objectives[1] = vec2(12, -206);
+	objectives[2] = vec2(197, -203);
+	objectives[3] = vec2(-200, -2);
+	objectives[4] = vec2(225, -65);
+	objectives[5] = vec2(186, 185);
+
 	return ret;
 }
 
@@ -59,6 +89,8 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
+
+	
 	//Arrow vectical fluctuation
 	fletxa_fluctuation += 0.03;
 	if (fletxa_fluctuation >= 360)
