@@ -24,8 +24,9 @@ public:
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2) override;
 
 public:
-	PhysBody3D* sensor;
+	Cube* floor;
 
+	PhysBody3D* sensor;
 	Cylinder* fletxa;
 	Cylinder* fletxa_point_top;
 	Sphere* fletxa_point;

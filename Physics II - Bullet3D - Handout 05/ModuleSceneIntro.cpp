@@ -21,6 +21,10 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 100.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
+	floor = new Cube(500, 1, 500);
+	floor->SetPos(0, -0.5, 0);
+	floor->color = Color(0.1f, 0.1f, 0.1f);
+
 	sensor = App->physics->AddBody(Cube(10, 10, 10), 0.0f);
 	sensor->SetAsSensor(true);
 
@@ -51,19 +55,13 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	Plane p(0, 1, 0, 0);
-	p.axis = true;
-	p.Render();
 
+
+	//Renders
+	floor->Render();
 	for (p2List_item<Cube*>* current_building = buildings.getFirst(); current_building != nullptr; current_building = current_building->next) {
 		current_building->data->Render();
 	}
-	
-	/*if (App->input->GetKey(SDL_SCANCODE_M) == KEY_REPEAT) {
-		srand(time(NULL));
-		MoveSensor(-50 + rand() % 100, -50);
-	}*/
-
 	fletxa->Render();
 	fletxa_point->Render();
 	fletxa_point_top->Render();
