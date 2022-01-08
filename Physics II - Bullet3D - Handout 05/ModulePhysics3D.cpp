@@ -69,29 +69,25 @@ bool ModulePhysics3D::Start()
 
 	//Random height building grid
 	srand(time(NULL));
-	/*
-	for (int i = 0; i < 5; i++) {
-		for (int j = 0; j < 5; j++) {
-			CreateBuilding(30, 30, 45*i, 45*j);
-		}
-	}*/
 	
 	//Outer limits
 	for (int i = 0; i < 20; i++) {
-		CreateBuilding(10, 25, 260, -225 + 25*i);
+		CreateBuilding(10, 25, 250, -250 + 25*i);
 	}
 	for (int i = 0; i < 20; i++) {
-		CreateBuilding(10, 25, -250, -225 + 25 * i);
+		CreateBuilding(10, 25, -260, -250 + 25 * i);
 	}
 	for (int i = 0; i < 20; i++) {
-		CreateBuilding(25, 10, -225 + 25 * i, 260);
+		CreateBuilding(25, 10, -250 + 25 * i, 250);
 	}
 	for (int i = 0; i < 20; i++) {
-		CreateBuilding(25, 10, -225 + 25 * i, -250);
+		CreateBuilding(25, 10, -250 + 25 * i, -260);
 	}
 
+	//Normal Buildings
+	App->scene_intro->NormalBuildingCreation();
+
 	//Important Buildings
-	
 
 	return true;
 }
@@ -391,17 +387,21 @@ void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, c
 }
 
 void ModulePhysics3D::CreateBuilding(float wx, float wz, float x, float z) {
+	//Random height
 	float h = 20 + rand() % 10;
 	
+	//Create main building
 	Cube* c = new Cube(wx, h, wz);
-	c->SetPos(x - (wx/2), h/2, z - (wz / 2));
+	c->SetPos(x + (wx/2), h/2, z + (wz / 2));
 	AddBody(*c, 0.0f);
 	App->scene_intro->buildings.add(c);
+	c->color.Set(h / 40.0f, h / 40.0f, h / 40.0f);
 
+	//Create sidewalk
 	Cube* v = new Cube(wx + 4, 0.6f, wz + 4);
-	v->SetPos(x - (wx / 2), 0.3, z - (wz / 2));
+	v->SetPos(x + (wx / 2), 0.3, z + (wz / 2));
 	AddBody(*v, 0.0f);
-	v->color = Color(0.4f, 0.4f, 0.4f);
+	v->color.Set(0.4f, 0.4f, 0.4f);
 	App->scene_intro->buildings.add(v);
 }
 

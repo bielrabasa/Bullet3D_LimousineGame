@@ -45,9 +45,9 @@ update_status ModuleCamera3D::Update(float dt)
 		followVehicle = !followVehicle;
 
 	vec3 newPos(0,0,0);
-	float speed = 20.0f * dt;
+	float speed = 50.0f * dt;
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-		speed = 50.0f * dt;
+		speed = 100.0f * dt;
 
 	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
 	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
@@ -64,7 +64,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	// Mouse motion ----------------
 	if (!followVehicle) {
-		if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
 		{
 			int dx = -App->input->GetMouseXMotion();
 			int dy = -App->input->GetMouseYMotion();

@@ -22,6 +22,8 @@ public:
 	void MoveSensor(float x, float z);
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2) override;
+	
+	void NormalBuildingCreation();
 
 public:
 	Cube* floor;
@@ -30,6 +32,12 @@ public:
 	Cylinder* fletxa;
 	Cylinder* fletxa_point_top;
 	Sphere* fletxa_point;
+	float fletxa_fluctuation = 0.0f;
+	vec3 fletxa_pos = vec3(0.0f, 0.0f, 0.0f);
+	
+	vec2 missions[20];
+	vec2 objectives[6];
+	bool mission = true;
 
 	PhysBody3D* pb_chassis;
 	Cube p_chassis;
@@ -43,4 +51,5 @@ public:
 	PhysMotor3D* left_wheel;
 	PhysMotor3D* right_wheel;
 	p2List<Cube*> buildings;
+
 };
