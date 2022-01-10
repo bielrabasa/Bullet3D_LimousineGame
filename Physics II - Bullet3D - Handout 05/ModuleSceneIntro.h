@@ -29,6 +29,18 @@ public:
 	Cube* floor;
 	Cube* park;
 
+	struct Person {
+		Sphere* head = nullptr;
+		Cylinder* body = nullptr;
+		Cylinder* armL = nullptr;
+		Cylinder* armR = nullptr;
+		Cylinder* legL = nullptr;
+		Cylinder* legR = nullptr;
+		Person();
+		void Move(float x, float y, float z);
+		void Render();
+	}person;
+
 	PhysBody3D* sensor;
 	Cylinder* fletxa;
 	Cylinder* fletxa_point_top;

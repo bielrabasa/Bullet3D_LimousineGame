@@ -150,8 +150,8 @@ update_status ModulePlayer::Update(float dt)
 	//Velocity Limiter
 	if (vehicle->GetKmh() > 150 || vehicle->GetKmh() < -150)
 		vehicle->Brake(100);
-
-	vehicle->Render();
+	
+	vehicle->Render(!App->scene_intro->mission);
 
 	char title[80];
 	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());

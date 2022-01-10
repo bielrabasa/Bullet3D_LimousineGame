@@ -75,6 +75,8 @@ bool ModuleSceneIntro::Start()
 	objectives[4] = vec2(225, -65);
 	objectives[5] = vec2(186, 185);
 
+	person.Move(0, 5, 0);
+
 	return ret;
 }
 
@@ -98,7 +100,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	fletxa->SetPos(fletxa_pos.x, fletxa_pos.y + 5 + fluct_dist, fletxa_pos.z);
 	fletxa_point->SetPos(fletxa_pos.x, fletxa_pos.y + fluct_dist, fletxa_pos.z);
 	fletxa_point_top->SetPos(fletxa_pos.x, fletxa_pos.y + 1 + fluct_dist, fletxa_pos.z);
-	
+
 	//Renders
 	floor->Render();
 	park->Render();
@@ -108,6 +110,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	fletxa->Render();
 	fletxa_point->Render();
 	fletxa_point_top->Render();
+	person.Render();
 
 	return UPDATE_CONTINUE;
 }
@@ -137,15 +140,59 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			//searching for people
 			vec2 nextMission = missions[rand() % 20];
 			MoveSensor(nextMission.x, nextMission.y);
+			person.Move(nextMission.x, 5, nextMission.y);
 		}
 		else {
 			//bringing people to place
 			vec2 nextObjective = objectives[rand() % 6];
 			MoveSensor(nextObjective.x, nextObjective.y);
+			person.Move(0, -10, 0);
 		}
 	}
 }
 
+ModuleSceneIntro::Person::Person() {
+	head = new Sphere(1.0f);
+	head->color.Set(1, 0.7, 0.5);
+
+	body = new Cylinder(0.5f, 3.0f);
+	body->color.Set(0, 1, 1);
+
+	armL = new Cylinder(0.3f, 1.5f);
+	armL->color.Set(1.0f, 0.7, 0.5);
+	armR = new Cylinder(0.3f, 1.5f);
+	armR->color.Set(1.0f, 0.7, 0.5);
+
+	legL = new Cylinder(0.4f, 2.0f);
+	legL->color.Set(0.0, 0.2, 1);
+	legR = new Cylinder(0.4f, 2.0f);
+	legR->color.Set(0.0, 0.2, 1);
+
+	body->SetRotation(90, vec3(0, 0, 1));
+	armL->SetRotation(45, vec3(0, 0, 1));
+	armR->SetRotation(-45, vec3(0, 0, 1));
+	legL->SetRotation(80, vec3(0, 0, 1));
+	legR->SetRotation(-80, vec3(0, 0, 1));
+
+}
+
+void ModuleSceneIntro::Person::Move(float x, float y, float z) {
+	head->SetPos(x, y, z);
+	body->SetPos(x, y - 2, z);
+	armL->SetPos(x - 0.8, y - 2, z);
+	armR->SetPos(x + 0.8, y - 2, z);
+	legL->SetPos(x - 0.5, y - 4, z);
+	legR->SetPos(x + 0.5, y - 4, z);
+}
+
+void ModuleSceneIntro::Person::Render() {
+	head->Render();
+	body->Render();
+	armL->Render();
+	armR->Render();
+	legL->Render();
+	legR->Render();
+}
 void ModuleSceneIntro::NormalBuildingCreation() {
 	App->physics->CreateBuilding(30, 30, -250, -138);
 	App->physics->CreateBuilding(30, 30, -207, -153);

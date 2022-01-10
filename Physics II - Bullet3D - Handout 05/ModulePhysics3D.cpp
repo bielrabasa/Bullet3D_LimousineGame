@@ -167,7 +167,7 @@ update_status ModulePhysics3D::Update(float dt)
 		p2List_item<PhysVehicle3D*>* item = vehicles.getFirst();
 		while(item)
 		{
-			item->data->Render();
+			item->data->Render(false);
 			item = item->next;
 		}
 

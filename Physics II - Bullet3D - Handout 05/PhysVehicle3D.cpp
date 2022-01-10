@@ -21,7 +21,7 @@ PhysVehicle3D::~PhysVehicle3D()
 }
 
 // ----------------------------------------------------------------------------
-void PhysVehicle3D::Render()
+void PhysVehicle3D::Render(bool p)
 {
 	Cylinder wheel;
 
@@ -46,7 +46,24 @@ void PhysVehicle3D::Render()
 	for (int i = 0; i < 6; i++) {
 		CreateRenderPart(Color(Black), 0.1, -1.2, -14.2, 0, 0.4, -3.5 + 1.40 * i);
 	}
-	
+
+	//person
+	if (p){
+		btQuaternion q = vehicle->getChassisWorldTransform().getRotation();
+		btVector3 offset(info.chassis_offset.x, info.chassis_offset.y + 1.2, info.chassis_offset.z - 2);
+		offset = offset.rotate(q.getAxis(), q.getAngle());
+
+		Sphere chassis(0.8);
+		vehicle->getChassisWorldTransform().getOpenGLMatrix(&chassis.transform);
+
+		chassis.transform.M[12] += offset.getX();
+		chassis.transform.M[13] += offset.getY();
+		chassis.transform.M[14] += offset.getZ();
+
+		chassis.color.Set(1, 0.7, 0.5);
+
+		chassis.Render();
+	}
 }
 
 //color, size (respect vehicle's colisionbox), offsets
