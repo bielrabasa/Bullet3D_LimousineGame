@@ -21,7 +21,7 @@ PhysVehicle3D::~PhysVehicle3D()
 }
 
 // ----------------------------------------------------------------------------
-void PhysVehicle3D::Render(bool p)
+void PhysVehicle3D::Render(bool p, int turbo, bool t)
 {
 	Cylinder wheel;
 
@@ -39,8 +39,15 @@ void PhysVehicle3D::Render(bool p)
 	}
 
 	//Main body
-	CreateRenderPart(Color(Red), 0, 0, -6, 0, 0, 0);
-	CreateRenderPart(Color(Red), 0, -1, 0, 0, -0.5, 0);
+	CreateRenderPart(Color(1, 0.1, 1), 0, 0, -6, 0, 0, 0);
+	CreateRenderPart(Color(1, 0.1, 1), 0, -1, 0, 0, -0.5, 0);
+
+	//Turbo
+	CreateRenderPart(Color(1, 0.7, 0), -1, -1.99, -15 + 7 * (turbo / 100.0f), 0, 1, -3.5 + (3.5 * (turbo / 100.0f)));
+	
+	if (t) {
+	//	CreateRenderPart();
+	}
 
 	//Windows
 	for (int i = 0; i < 6; i++) {

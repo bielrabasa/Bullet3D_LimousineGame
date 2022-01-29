@@ -48,7 +48,7 @@ public:
 	PhysVehicle3D(btRigidBody* body, btRaycastVehicle* vehicle, const VehicleInfo& info);
 	~PhysVehicle3D();
 
-	void Render(bool p);
+	void Render(bool p, int turbo, bool t);
 	void CreateRenderPart(Color color,
 		float chassisX, float chassisY, float chassisZ,
 		float offsetX, float offsetY, float offsetZ);

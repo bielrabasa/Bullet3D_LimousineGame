@@ -143,15 +143,26 @@ update_status ModulePlayer::Update(float dt)
 		brake = BRAKE_POWER;
 	}
 
+	//Drag Force
+	acceleration -= (0.5 * vehicle->GetKmh() * 4 * 10); // 0,5 * velocity * surface * drag coeficient (mass is relative to drag coeficient here)
+
+	//Impulsive Force (turbo)
+	t = false;
+	if (turbo > 0 && (App->input->GetMouseButton(3) == KEY_REPEAT)) {
+		acceleration = MAX_ACCELERATION * 5;
+		turbo--;
+		t = true;
+	}
+	else if (turbo < 100) {
+		turbo++;
+	}
+	LOG("Turbo: %d", turbo);
+
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
-
-	//Velocity Limiter
-	if (vehicle->GetKmh() > 150 || vehicle->GetKmh() < -150)
-		vehicle->Brake(100);
 	
-	vehicle->Render(!App->scene_intro->mission);
+	vehicle->Render(!App->scene_intro->mission, turbo, t);
 
 	char title[80];
 	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());

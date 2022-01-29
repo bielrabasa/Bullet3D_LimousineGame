@@ -27,4 +27,6 @@ public:
 	float turn;
 	float acceleration;
 	float brake;
+	int turbo = 100;
+	bool t = false;
 };
