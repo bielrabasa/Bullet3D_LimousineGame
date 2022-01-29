@@ -46,7 +46,8 @@ void PhysVehicle3D::Render(bool p, int turbo, bool t)
 	CreateRenderPart(Color(1, 0.7, 0), -1, -1.99, -15 + 7 * (turbo / 100.0f), 0, 1, -3.5 + (3.5 * (turbo / 100.0f)));
 	
 	if (t) {
-	//	CreateRenderPart();
+		CreateRenderPart(Color(1, 0.7, 0), -1.5, -1.5, -14.9, 0.5, -0.5, -7.5);
+		CreateRenderPart(Color(1, 0.7, 0), -1.5, -1.5, -14.9, -0.5, -0.5, -7.5);
 	}
 
 	//Windows
