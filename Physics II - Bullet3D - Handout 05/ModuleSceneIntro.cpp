@@ -21,6 +21,19 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 100.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
+	post1 = new Cylinder(1, 10);
+	post2 = new Cylinder(1, 10);
+	post3 = new Cylinder(1, 10);
+	post1->SetRotation(90, vec3(0, 0, 1));
+	post2->SetRotation(90, vec3(0, 0, 1));
+	post3->SetRotation(90, vec3(0, 0, 1));
+	post1->SetPos(-5, 5, 30);
+	post2->SetPos(0, 5, 30);
+	post3->SetPos(5, 5, 30);
+	post1->color = Red;
+	post2->color = Red;
+	post3->color = Red;
+
 	//WIN
 	WinLose(true, 10, 1, 0, -20, 10);	//W
 	WinLose(true, 10, 1, 0, -10, -10);
@@ -144,6 +157,9 @@ update_status ModuleSceneIntro::Update(float dt)
 	fletxa_point->Render();
 	fletxa_point_top->Render();
 	person.Render();
+	post1->Render();
+	post2->Render();
+	post3->Render();
 
 	return UPDATE_CONTINUE;
 }
@@ -175,8 +191,16 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			MoveSensor(nextMission.x, nextMission.y);
 			person.Move(nextMission.x, 5, nextMission.y);
 			App->player->score++;
-			if (App->player->score >= 3)
+			switch (App->player->score) {
+			case 1:
+				post1->color = Green;
+				break;
+			case 2:
+				post2->color = Green;
+				break;
+			case 3:
 				App->player->win = true;
+			}
 		}
 		else {
 			//bringing people to place

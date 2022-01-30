@@ -30,6 +30,6 @@ public:
 	int turbo = 100;
 	bool t = false;
 	int score = 0;
-	bool win = true;
+	bool win = false;
 	bool lose = false;
 };

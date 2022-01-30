@@ -66,4 +66,7 @@ public:
 	PhysMotor3D* right_wheel;
 	p2List<Cube*> buildings;
 
+	Cylinder* post1;
+	Cylinder* post2;
+	Cylinder* post3;
 };
