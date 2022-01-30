@@ -32,4 +32,5 @@ public:
 	int score = 0;
 	bool win = false;
 	bool lose = false;
+	float velocity = 0.0f;
 };

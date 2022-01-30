@@ -99,6 +99,7 @@ bool ModulePlayer::Start()
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(0, 3, -30);
 	vehicle->collision_listeners.add(App->scene_intro);
+	vehicle->collision_listeners.add(this);
 
 	return true;
 }
@@ -167,6 +168,8 @@ update_status ModulePlayer::Update(float dt)
 	char title[80];
 	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
 	App->window->SetTitle(title);
+	
+	velocity = vehicle->GetKmh();
 
 	position.x = vehicle->vehicle->getChassisWorldTransform().getOrigin().x();
 	position.y = vehicle->vehicle->getChassisWorldTransform().getOrigin().y();
@@ -176,5 +179,6 @@ update_status ModulePlayer::Update(float dt)
 }
 
 void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2){
-
+	if (velocity > 100)
+		lose = true;
 }
