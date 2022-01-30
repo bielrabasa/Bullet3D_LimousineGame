@@ -137,6 +137,16 @@ update_status ModuleCamera3D::Update(float dt)
 			Position.y += 20;
 			LookAt(App->scene_intro->fletxa_pos);
 		}
+
+		if (App->player->win) {
+			MoveAt(vec3(480, 30, 500));
+			LookAt(vec3(500, 0, 500));
+		}
+
+		if (App->player->lose) {
+			MoveAt(vec3(-480, 30, -500));
+			LookAt(vec3(-500, 0, -500));
+		}
 	}
 	
 

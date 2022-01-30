@@ -21,6 +21,39 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 100.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
+	//WIN
+	WinLose(true, 10, 1, 0, -20, 10);	//W
+	WinLose(true, 10, 1, 0, -10, -10);
+	WinLose(true, 6, 1, -3, -17, -50);
+	WinLose(true, 6, 1, -3, -13, 50);
+
+	WinLose(true, 10, 1, 0, 0, 0);		//I
+	
+	WinLose(true, 10, 1, 0, 10, 0);		//N
+	WinLose(true, 10, 1, 0, 18, 0);	
+	WinLose(true, 12, 1, 0, 14, 40);
+
+	//LOSE
+	WinLose(false, 10, 1, 0, 19, 0);	//L
+	WinLose(false, 5, 1, 5, 17, 90);
+	
+	WinLose(false, 10, 1, 0, 9, 0);	//O
+	WinLose(false, 10, 1, 0, 4, 0);
+	WinLose(false, 6, 1, 5, 6.5, 90);
+	WinLose(false, 6, 1, -4.5, 6.5, 90);
+
+	WinLose(false, 5, 1, -2.5, -4, 0);	//S
+	WinLose(false, 5, 1, 2.5, -9, 0);
+	WinLose(false, 6, 1, 5, -6.5, 90);
+	WinLose(false, 6, 1, -4.5, -6.5, 90);
+	WinLose(false, 6, 1, 0, -6.5, 90);
+
+	WinLose(false, 10, 1, 0, -14, 0);	//E
+	WinLose(false, 6, 1, 5, -16.5, 90);
+	WinLose(false, 6, 1, -4.5, -16.5, 90);
+	WinLose(false, 6, 1, 0, -16.5, 90);
+	
+
 	floor = new Cube(500, 1, 500);
 	floor->SetPos(0, -0.5, 0);
 	floor->color = Color(0.1f, 0.1f, 0.1f);
@@ -141,6 +174,9 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			vec2 nextMission = missions[rand() % 20];
 			MoveSensor(nextMission.x, nextMission.y);
 			person.Move(nextMission.x, 5, nextMission.y);
+			App->player->score++;
+			if (App->player->score >= 3)
+				App->player->win = true;
 		}
 		else {
 			//bringing people to place
@@ -279,4 +315,24 @@ void ModuleSceneIntro::NormalBuildingCreation() {
 	App->physics->CreateBuilding(40, 40, -201, 17);
 	App->physics->CreateBuilding(10, 60, 53, -250);
 	App->physics->CreateBuilding(197, 10, 53, -176);
+}
+
+void ModuleSceneIntro::WinLose(bool win, float wx, float wz, float x, float z, float r) {
+
+	//Create main building
+	Cube* c = new Cube(wx, 1, wz);
+	c->SetRotation(r, vec3(0, 1, 0));
+
+	float d = -500;
+	if (win)
+		d = 500;
+		
+	c->SetPos(x + d, 0.5, z + d);
+	
+	if(win)
+		c->color = Color(Green);
+	else
+		c->color = Color(Red);
+	
+	buildings.add(c);
 }

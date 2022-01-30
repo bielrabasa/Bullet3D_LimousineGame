@@ -29,4 +29,7 @@ public:
 	float brake;
 	int turbo = 100;
 	bool t = false;
+	int score = 0;
+	bool win = true;
+	bool lose = false;
 };

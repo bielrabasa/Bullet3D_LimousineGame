@@ -24,6 +24,7 @@ public:
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2) override;
 	
 	void NormalBuildingCreation();
+	void WinLose(bool win, float wx, float wz, float x, float z, float r);
 
 public:
 	Cube* floor;
